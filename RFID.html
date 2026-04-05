@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RFID Attendance System</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+    <h1>📟 RFID Attendance System</h1>
+
+    <input type="text" id="rfidInput" placeholder="Scan RFID..." autofocus>
+
+    <button onclick="goAdmin()">Go to Admin</button>
+
+    <h3>Live Logs</h3>
+    <div id="logs"></div>
+</div>
+
+<script>
+let students = {
+    "2025-02907": "ABAH, NADZMI",
+    "2025-02697": "AGEAS, ROVHIC",
+    "2025-01218": "AHAMAD, AINEE"
+};
+
+document.getElementById("rfidInput").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+        let id = this.value.trim();
+        let name = students[id] || "Unknown Student";
+
+        let time = new Date().toLocaleTimeString();
+
+        let record = {
+            id,
+            name,
+            time
+        };
+
+        let logs = JSON.parse(localStorage.getItem("attendance")) || [];
+        logs.push(record);
+        localStorage.setItem("attendance", JSON.stringify(logs));
+
+        displayLogs();
+        this.value = "";
+    }
+});
+
+function displayLogs() {
+    let logs = JSON.parse(localStorage.getItem("attendance")) || [];
+    let container = document.getElementById("logs");
+
+    container.innerHTML = logs.slice(-5).reverse().map(log => `
+        <div class="log">
+            <strong>${log.name}</strong><br>
+            ID: ${log.id} <br>
+            Time: ${log.time}
+        </div>
+    `).join("");
+}
+
+function goAdmin() {
+    window.location.href = "admin.html";
+}
+
+displayLogs();
+</script>
+
+</body>
+</html>
