@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+    <h1>📊 Admin Dashboard</h1>
+
+    <button onclick="clearLogs()">Clear Attendance</button>
+    <button onclick="goBack()">Back to Scanner</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>ID</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</div>
+
+<script>
+function loadTable() {
+    let logs = JSON.parse(localStorage.getItem("attendance")) || [];
+    let tbody = document.getElementById("tableBody");
+
+    tbody.innerHTML = logs.map(log => `
+        <tr>
+            <td>${log.name}</td>
+            <td>${log.id}</td>
+            <td>${log.time}</td>
+        </tr>
+    `).join("");
+}
+
+function clearLogs() {
+    localStorage.removeItem("attendance");
+    loadTable();
+}
+
+function goBack() {
+    window.location.href = "RFID.html";
+}
+
+loadTable();
+</script>
+
+</body>
+</html>
