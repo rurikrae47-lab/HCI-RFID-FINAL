@@ -1,0 +1,85 @@
+:root {
+    --crimson: #9e1b32;
+    --dark-bg: #0a0a0a;
+    --card-bg: #141414;
+    --text-main: #e0e0e0;
+}
+
+body {
+    background: var(--dark-bg);
+    color: var(--text-main);
+    font-family: Arial;
+}
+
+.sidebar {
+    width: 250px;
+    position: fixed;
+    left: -250px;
+    background: #111;
+    height: 100%;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+#nav-toggle:checked ~ .sidebar {
+    left: 0;
+}
+
+.menu-trigger {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: var(--crimson);
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.main-container {
+    padding: 80px 20px;
+}
+
+.scanner-unit {
+    background: var(--card-bg);
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.visual-scanner {
+    border: 2px solid var(--crimson);
+    height: 120px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.laser-line {
+    height: 2px;
+    background: red;
+    animation: scan 2s infinite;
+}
+
+@keyframes scan {
+    0% {top:0;}
+    100% {top:100%;}
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+}
+
+.scan-result {
+    background: #222;
+    margin-top: 10px;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.check-circle {
+    background: green;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
